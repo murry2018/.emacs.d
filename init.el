@@ -140,6 +140,9 @@
 ;; Manual: https://elpy.readthedocs.io/en/latest/index.html
 ;;; Explanation
 ;; All I need for python scripting.
+;; Run emacs in virtualenv, and launch `M-x elpy-config'.
+;;; Prerequisites
+;; - [Mandatory] virtualenv, venv or pipenv
 (use-package elpy
   :ensure t
   :init (elpy-enable))
