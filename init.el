@@ -113,14 +113,17 @@
   (tide-setup)
   (tide-hl-identifier-mode 1))
 
-;; rjsx-mode-hook isn't automatically loaded.
-;; rjsx-mode-hook is used in tide config below.
-(require 'rjsx-mode)
+(require 'rjsx-mode) ;; rjsx-mode-hook
+(require 'tide) ;; jsx-tide, javascript-tide
 
 (use-package tide
   :ensure t
   :after (typescript-mode rjsx-mode company flycheck)
-  :hook ((typescript-mode rjsx-mode) . #'my/setup-tide-mode))
+  :hook ((typescript-mode rjsx-mode) . #'my/setup-tide-mode)
+  :config
+  ;; js, jsx support
+  (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+  (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append))
 
 ;;;; Rainbow mode
 ;;; Resources
