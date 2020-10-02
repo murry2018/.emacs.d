@@ -84,18 +84,26 @@
   (setq-default flycheck-disabled-checkers
 		'(emacs-lisp-checkdoc)))
 
-;;;; Typescript, RJSX mode
+;;;; Web, RJSX mode
 ;;; Resources
+;; Website(Web-mode): http://web-mode.org/
+;; Github(Web-mode): https://github.com/fxbois/web-mode
 ;; Github(RJSX): https://github.com/felipeochoa/rjsx-mode
 ;;; Explanation
 ;; Editing, syntax-highlighting major modes for js and ts
-(use-package typescript-mode
+(use-package web-mode
   :ensure t
-  :mode "\\.tsx?\\'")
+  :mode "\\.tsx?\\'"
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  (web-mode-attr-indent-offset 2))
 
 (use-package rjsx-mode
   :ensure t
-  :mode "\\.jsx?\\'")
+  :mode "\\.jsx?\\'"
+  :custom
+  (js-indent-level 2))
 
 ;;;; TIDE
 ;;; Resources
@@ -118,8 +126,8 @@
 
 (use-package tide
   :ensure t
-  :after (typescript-mode rjsx-mode company flycheck)
-  :hook ((typescript-mode rjsx-mode) . #'my/setup-tide-mode)
+  :after (web-mode rjsx-mode company flycheck)
+  :hook ((web-mode rjsx-mode) . #'my/setup-tide-mode)
   :config
   ;; js, jsx support
   (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
