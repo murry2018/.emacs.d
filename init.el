@@ -178,6 +178,27 @@
 (use-package edit-indirect
   :ensure t)
 
+;;;; YAML-MODE
+;;; Resources
+;; Github: https://github.com/yoshiki/yaml-mode
+;;; Explanation
+;; Editing and Syntax-highlighting .yml file
+(use-package yaml-mode
+  :ensure t
+  :defer t
+  :mode "\\.yml\\'"
+  :bind ("C-m" . newline-and-indent))
+
+;;;; Dockerfile-mode
+;;; Reosources
+;; Github: https://github.com/spotify/dockerfile-mode
+;;; Explanation
+;; Editing and syntax-highlighting Dockerfile
+(use-package dockerfile-mode
+  :ensure t
+  :mode ("Dockerfile" "Dockerfile-dev" "Dockerfile.dev"))
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
