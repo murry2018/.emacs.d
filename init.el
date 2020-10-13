@@ -2,6 +2,9 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+(unless package-archive-contents
+  (package-refresh-contents))
+
 ;;;; Turn off menu-bar, scroll-bar, tool-bar
 (when (fboundp 'menu-bar-mode)
   (menu-bar-mode -1))
@@ -198,6 +201,42 @@
   :ensure t
   :mode ("Dockerfile" "Dockerfile-dev" "Dockerfile.dev"))
 
+;;;; LSP-mode
+;;; Resources
+;; Website: https://emacs-lsp.github.io/lsp-mode/
+(use-package lsp-mode
+  :ensure t
+  :hook
+  ((haskell-mode . lsp)
+   (haskell-literate-mode . lsp))
+  :custom
+  ;; use capf backends instead of company-lsp
+  (lsp-completion-provider :capf)
+  :commands lsp)
+
+;;;; LSP-haskell
+;;; Resources
+;; Github: https://github.com/emacs-lsp/lsp-haskell
+;;; Dependency
+;; 1.
+;; haskell-language-server: https://github.com/haskell/haskell-language-server
+;; Building from source takes so much time. Consider pre-built binary.
+;; 2.
+;; GHC executable on PATH
+;; stack or cabal executable on PATH
+;; 3.
+;; hie.yaml on project root
+;; hie.yaml basic setting
+;; ```
+;;   cradle:
+;;     stack:
+;; ```
+(use-package lsp-haskell
+  :ensure t
+  :after lsp-mode
+  :custom
+  (haskell-process-type 'stack-ghci))
+  
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -205,7 +244,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(tango-dark))
- '(package-selected-packages '(use-package)))
+ '(package-selected-packages '(lsp-haskell company-lsp lsp-mode use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
